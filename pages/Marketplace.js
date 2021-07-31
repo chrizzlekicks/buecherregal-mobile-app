@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Button } from 'react-native';
+import { ScrollView, View, FlatList, StyleSheet, Text, StatusBar, Button } from 'react-native';
 import { useEffect, useState } from 'react';
 import Shelf from '../components/Shelf';
 

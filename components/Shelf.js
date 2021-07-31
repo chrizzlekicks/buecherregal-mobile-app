@@ -19,7 +19,7 @@ const Shelf = ({ books }) => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#F7F7F7',
-        marginTop: 10
+        marginTop: 10,
     }
 })
 
