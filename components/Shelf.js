@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { View, Image, Text, FlatList } from "react-native"
+import { View, Image, Text, FlatList, StyleSheet } from "react-native"
 import BookView from "./BookView"
 
 
@@ -18,9 +18,8 @@ const Shelf = ({ books }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: '#F7F7F7',
-        marginTop: 60
+        marginTop: 10
     }
 })
 

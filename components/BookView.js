@@ -1,10 +1,14 @@
 import * as React from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text, StyleSheet, Image } from "react-native"
 import defaultImage from "../static/NotAvailable.jpeg"
 
 const BookView = ({ book }) => (
     <View style={styles.item}>
-        <Text style={styles.book}>{book.name}</Text>
+        <Image source={{uri:book.image}} style={{ width: 60, height: 60 }} />
+        <View style={{ alignItems: "center" }}>
+            <Text style={styles.book}>{book.name}</Text>
+            <Text style={styles.author}>{book.author}</Text>
+        </View>
     </View>
 );
 
@@ -13,16 +17,16 @@ const styles = StyleSheet.create({
         margin: 10,
         padding: 10,
         backgroundColor: "#FFF",
-        width: "80%",
-        flex: 1,
         alignSelf: "center",
         flexDirection: "row",
         borderRadius: 5,
-        fontSize: 32
     },
     book: {
         fontSize: 32,
     },
+    author: {
+        fontSize: 24,
+    }
 });
 
 export default BookView
