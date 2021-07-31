@@ -4,58 +4,57 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import Marketplace from "./pages/Marketplace";
-import OpenBooks from "./pages/OpenBook";
+import Marketplace from "../pages/Marketplace";
+import OpenBooks from "../pages/OpenBook";
 
-import MessageList from './pages/MessageList';
-import Chat from './pages/Chat';
-
-
-import MyBooks from './pages/MyBooks';
-import UploadBooks from './pages/UploadBooks';
-
-const Stack = createStackNavigator()
-const Tab = createBottomTabNavigator();
+import MessageList from '../pages/MessageList';
+import Chat from '../pages/Chat';
 
 
-function MarketplaceNavigation() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name ="Marketplace" component= {Marketplace} />
-      <Stack.Screen name ="OpenBook" component= {OpenBooks} />
-
-    </Stack.Navigator>)
-}
-
-function MessagesNavigation() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name ="MessageList" component= {MessageList} />
-      <Stack.Screen name ="Chat" component= {Chat} />
-
-    </Stack.Navigator>)
-}
-
-function MyBooksNavigation() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name ="MyBooks" component= {MyBooks} />
-    </Stack.Navigator>)
-}
-
-function UploadBooksNavigation() {
-  return (
-  <Stack.Navigator>
-    <Stack.Screen name="UploadBook" component= {UploadBooks}/>
-  </Stack.Navigator>
-  )
-}
+import MyBooks from '../pages/MyBooks';
+import UploadBooks from '../pages/UploadBooks';
 
 
 
-function App() {
+function Router() {
 
-   
+    const Stack = createStackNavigator()
+    const Tab = createBottomTabNavigator();
+    
+    
+    function MarketplaceNavigation() {
+      return (
+        <Stack.Navigator>
+          <Stack.Screen name ="Marketplace" component= {Marketplace} />
+          <Stack.Screen name ="OpenBook" component= {OpenBooks} />
+    
+        </Stack.Navigator>)
+    }
+    
+    function MessagesNavigation() {
+      return (
+        <Stack.Navigator>
+          <Stack.Screen name ="MessageList" component= {MessageList} />
+          <Stack.Screen name ="Chat" component= {Chat} />
+    
+        </Stack.Navigator>)
+    }
+    
+    function MyBooksNavigation() {
+      return (
+        <Stack.Navigator>
+          <Stack.Screen name ="MyBooks" component= {MyBooks} />
+        </Stack.Navigator>)
+    }
+    
+    function UploadBooksNavigation() {
+      return (
+      <Stack.Navigator>
+        <Stack.Screen name="UploadBook" component= {UploadBooks}/>
+      </Stack.Navigator>
+      )
+    }
+
   return (
     <NavigationContainer>
         <Tab.Navigator
@@ -94,4 +93,4 @@ function App() {
 }
 
 
-export default App;
+export default Router;

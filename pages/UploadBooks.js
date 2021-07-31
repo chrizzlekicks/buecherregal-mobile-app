@@ -1,7 +1,7 @@
-import * as React from 'react'
+import React from 'react'
 import {View, Text} from 'react-native'
 
-const UploadBook = () => {
+const UploadBooks = () => {
  
   return (
     <View>
@@ -10,4 +10,4 @@ const UploadBook = () => {
   );
 };
 
-export default UploadBook;
+export default UploadBooks;
