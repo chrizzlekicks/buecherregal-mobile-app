@@ -2,7 +2,6 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import Marketplace from './pages/Marketplace'
 import OpenBooks from './pages/OpenBook'
@@ -69,7 +68,7 @@ function App() {
             }
 
             // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />
+            // return <Ionicons name={iconName} size={size} color={color} />
           },
         })}
         tabBarOptions={{
