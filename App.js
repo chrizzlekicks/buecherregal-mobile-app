@@ -16,6 +16,7 @@ import Login from "./components/Login"
 
 import { AuthProvider } from './context/AuthContext'
 import { useGlobalContext } from './context/GlobalContext'
+import { MessageProvider } from './context/MessageContext'
 
 
 
@@ -36,18 +37,20 @@ function MarketplaceNavigation() {
 
 function MessagesNavigation() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name='MessageList' component={MessageList} />
-      <Stack.Screen name='Chat' component={Chat} />
-    </Stack.Navigator>
+    <MessageProvider>
+      <Stack.Navigator>
+        <Stack.Screen name='MessageList' component={MessageList} />
+        <Stack.Screen name='Chat' component={Chat} />
+      </Stack.Navigator>
+    </MessageProvider>
   )
 }
 
 function MyBooksNavigation() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='MyBooks' component={MyBooks} />
-      <Stack.Screen name='Login' component={Login} />
+        <Stack.Screen name='MyBooks' component={MyBooks} />
+        <Stack.Screen name='Login' component={Login} />
     </Stack.Navigator>
   )
 }

@@ -25,17 +25,18 @@ export const AuthProvider = ({ children }) => {
           'content-type': 'application/json',
         },
         body: JSON.stringify({
-          email: email,
-          password: password
+          email: "lassejantsch@web.de",
+          password: "!qW2AyXs"
         }),
       });
       if (res.ok) {
+        
         const userData = await res.json();
         setLoading(false);
         if (tryLogin) {
           setUserId(userData.user._id)
           setUserName(userData.user.name)
-          setJwt(userData.user.token)
+          setJwt(userData.token)
 
           // sessionStorage.setItem('id', userData.user._id);
           // sessionStorage.setItem('name', userData.user.name);

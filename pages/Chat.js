@@ -1,7 +1,9 @@
 import React, {useEffect, useRef} from 'react'
-import {StyleSheet, ScrollView, TextInput, Text, View, Button} from 'react-native'
+import {StyleSheet, ScrollView, TextInput, TouchableOpacity, View, Button} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Message from '../components/Message';
+import { useMessageContext } from '../context/MessageContext';
+
 
 const Chat = ({route}) => {
  
@@ -10,24 +12,38 @@ const Chat = ({route}) => {
 
 
   useEffect(() => {
-    scrollRef.current.scrollToEnd()
-  }, [])
+    scrollRef.current.scrollToEnd()}, [])
+    const { sendMessage, newMessage, setNewMessage, setNewSender, setNewReciver} = useMessageContext();
 
-  return (
-    
+    setNewSender(recipients[0])
+    setNewReciver(recipients[1])
+
+  return (    
     <View style={styles.container}>
       <ScrollView 
         ref ={scrollRef} 
         contentContainerStyle={{ flexGrow: 1,}} >
         <View style={styles.messageContainer}>
-          {messages.map(message => <Message {...message} />)}
+          {messages.map(message => <Message key={message._id} recipients={recipients} {...message} />)}
         </View>
       </ScrollView>
       <View style= {styles.formContainer}>
         <View style={styles.inputContainer}>
-          <TextInput name= {_id} multiline={true} style={styles.input} onFocus={() => {scrollRef.current.scrollToEnd()}} />
+          <TextInput 
+            name= {_id} 
+            value= {newMessage} 
+            multiline={true} 
+            style={styles.input} 
+            onFocus={() => {scrollRef.current.scrollToEnd()}}
+            onChangeText={setNewMessage} />
         </View>
-        <View style={styles.buttonBackground} ><Ionicons name="paper-plane" style={styles.button} /></View>
+          <TouchableOpacity 
+            style={styles.buttonBackground} 
+            onPress={() => {
+              sendMessage()
+            }} >
+              <Ionicons name="paper-plane" style={styles.button} />
+          </TouchableOpacity>
       </View>
       
     </View>

@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-function Message({sender, message}) {
+function Message({ recipients, message, sender }) {
 
     return(
         <View>
@@ -10,7 +10,9 @@ function Message({sender, message}) {
                 <Ionicons name="person-circle-outline" style={styles.profilePicture} />
                 <View style= {sender=== "Ich" ? styles.textContainer_: styles.textContainer}>
                     <Text style= {styles.userName}> 
-                        {sender}
+                        {sender === recipients[0]._id
+                        ? recipients[0].name
+                        : recipients[1].name}
                     </Text>
                     <Text style= {styles.message}>
                         {message}
