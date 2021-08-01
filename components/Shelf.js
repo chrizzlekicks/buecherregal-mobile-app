@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, Image, Text, FlatList, StyleSheet } from 'react-native'
 import BookView from './BookView'
 
-const Shelf = ({ books }) => {
+const Shelf = (props) => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={books}
+        data={props}
         renderItem={({ item }) => <BookView book={item} />}
-        keyExtractor={(books) => books._id}
+        keyExtractor={(props) => props._id}
         numColumns={2}
       />
     </View>

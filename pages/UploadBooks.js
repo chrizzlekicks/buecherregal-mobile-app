@@ -17,11 +17,10 @@ const UploadBooks = () => {
   const [condition, setCondition] = useState()
   const [desc, setDesc] = useState()
 
-  const { setLoading, setAlert, API_BOOKS, userId, jwt } = useGlobalContext()
+  const { API_BOOKS, userId, jwt } = useGlobalContext()
 
   const bookUpload = async (api, token) => {
     try {
-      setLoading(true)
       const res = await fetch(api, {
         method: 'POST',
         headers: {
@@ -39,23 +38,12 @@ const UploadBooks = () => {
       })
       if (res.ok) {
         await res.json()
-        setLoading(false)
-        setAlert({
-          display: true,
-          // icon: <FaCheckCircle />,
-          msg: 'Das Buch wurde erfolgreich hinzugefügt',
-        })
+        console.log('success')
       } else {
         throw new Error('Hoppala, da ist was schief gegangen')
       }
     } catch (error) {
       console.log('Hochladen fehlgeschlagen', error)
-      setLoading(false)
-      setAlert({
-        display: true,
-        // icon: <FaPoo />,
-        msg: 'Das hat irgendwie nicht geklappt...',
-      })
     } finally {
       setName()
       setAuthor()
@@ -122,7 +110,7 @@ const UploadBooks = () => {
       />
       <TextInput
         style={styles.input}
-        placeholder='Zustand des Buches'
+        placeholder='Beschreibung des Buches'
         onChangeText={setDesc}
         name='desc'
         value={desc}
