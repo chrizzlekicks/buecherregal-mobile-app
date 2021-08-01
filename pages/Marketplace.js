@@ -1,33 +1,49 @@
-import React, { useState, useEffect } from 'react'
-import { View } from 'react-native'
-import Shelf from '../components/Shelf'
+import * as React from 'react'
+import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react';
+import Shelf from '../components/Shelf';
 
-const Marketplace = () => {
-  const [data, setData] = useState([])
+const Marketplace = (props) => {
+    const [isLoading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
 
-  const getBooks = async () => {
-    try {
-      const response = await fetch(
-        'http://buecherregal.herokuapp.com/api/books',
-        { method: 'GET' }
-        
-      )
-      const json = await response.json()
-      setData(json)
-    } catch (error) {
-      console.error(error)
+    const getBooks = async () => {
+        try {
+            const response = await fetch(
+                'http://buecherregal.herokuapp.com/api/books',
+                { method: 'GET' }
+            )
+            const json = await response.json()
+            console.log('TEST')
+            setData(json)
+            setLoading(false)
+        } catch (error) {
+            console.error(error)
+        }
     }
-  }
 
-  useEffect(() => {
-    getBooks()
-  }, [])
+    useEffect(() => {
+        getBooks()
+    }, [])
 
-  return (
-    <View>
-      <Shelf books={data} />
-    </View>
-  )
+
+    return (
+        <View style={styles.container}>
+            {isLoading ? <ActivityIndicator /> : (
+                <Shelf navigation={props.navigation} books={data} />
+            )
+            }
+        </View>
+    );
 }
 
-export default Marketplace
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#F7F7F7',
+        marginTop: 10,
+        flex: 1,
+    }
+})
+
+
+export default Marketplace;

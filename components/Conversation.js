@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
 
-        height: 50,
+        height: 55,
         marginTop: 20,
         paddingBottom: 10,
 
@@ -54,17 +54,19 @@ const styles = StyleSheet.create({
 
     textContainer:{
         paddingHorizontal: 15,
+        height: 45,
         
     },
 
     profilePicture: {
         paddingLeft: 15,
-        fontSize: 40,
+        fontSize: 45,
     },
 
     userName: {
         fontSize: 16,
         fontWeight: "bold",
+        color: "#B00055"
     },
 
     message: {
