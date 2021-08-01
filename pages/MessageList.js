@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
+import {ScrollView, StyleSheet, Text} from 'react-native'
 import { useMessageContext } from '../context/MessageContext';
 
 import Conversation from '../components/Conversation'
@@ -19,7 +19,7 @@ const MessageList = ({navigation}) => {
  
   console.log(useMessageContext())
   const { conversations } = useMessageContext()
-  console.log( conversations)
+  console.log( "conversations")
 
   return (
     <ScrollView style={style.container} >

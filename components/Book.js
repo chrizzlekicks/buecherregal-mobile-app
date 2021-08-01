@@ -16,40 +16,36 @@ const Book = (props) => (
 
 const styles = StyleSheet.create({
     item: {
-        margin: 10,
-        padding: 10,
-        alignSelf: "center",
-        borderRadius: 5,
-        width: 200,
-        minHeight: 300
+        flex:1,
     },
     image: {
         alignSelf: "center",
-        marginTop: 5,
-        marginLeft: 5,
-        marginBottom: 0,
-        marginRight: 5,
-        width: 200,
-        height: 200,
+        width: "100%",
+        height: 300,
     },
     textbox: {
         alignSelf: "center",
         backgroundColor: "#FFFFFF",
-        flex: 1
+        width: "100%",
+        flex: 1,
+        padding: 15,
     },
     book: {
-        padding: 10,
         color: "#b00055",
-        fontSize: 24,
+        fontSize: 30,
+        fontWeight: "bold"
     },
     author: {
-        padding: 10,
         color: "#b00055",
-        fontSize: 16,
+        fontSize: 19,
+        marginBottom: 10,
     },
     default: {
         color: "#000000",
-        fontSize: 16,
+        fontSize: 19,
+    },
+    bold: {
+        fontWeight: "bold",
     }
 
 });

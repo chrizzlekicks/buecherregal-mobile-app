@@ -3,17 +3,17 @@ import React, { createContext, useState, useContext } from 'react'
 const AppContext = createContext()
 
 export const AppProvider = ({ children }) => {
-  const API_BOOKS = 'http://buecherregal-dev.herokuapp.com/api/books/'
-  const API_USERS = 'http://buecherregal-dev.herokuapp.com/api/users/'
+  const API_BOOKS = 'http://buecherregal.herokuapp.com/api/books/'
+  const API_USERS = 'http://buecherregal.herokuapp.com/api/users/'
   const API_BOOKSBYUSER =
-    'http://buecherregal-dev.herokuapp.com//api/books/user/'
-  const API_MESSAGES = 'http://buecherregal-dev.herokuapp.com//api/messages/'
+    'http://buecherregal.herokuapp.com//api/books/user/'
+  const API_MESSAGES = 'http://buecherregal.herokuapp.com//api/messages/'
   const API_MESSAGESUSER =
-    'http://buecherregal-dev.herokuapp.com/api/messages/user/'
+    'http://buecherregal.herokuapp.com/api/messages/user/'
   const [userName, setUserName] = useState()
   const [userId, setUserId] = useState()
   const [jwt, setJwt] = useState()
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true)
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(userName? true: false)
   const [loading, setLoading] = useState(false)
   const [alert, setAlert] = useState({ display: false, icon: '', msg: '' })
   const [isSubmenuOpen, setIsSubmenuOpen] = useState(false)

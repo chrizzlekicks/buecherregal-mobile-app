@@ -13,8 +13,8 @@ const Chat = ({ route }) => {
     scrollRef.current.scrollToEnd()}, [])
     const { sendMessage, newMessage, setNewMessage, setNewSender, setNewReciver} = useMessageContext();
 
-    setNewSender(recipients[0])
-    setNewReciver(recipients[1])
+    // setNewSender(recipients[0])
+    // setNewReciver(recipients[1])
 
   return (    
     <View style={styles.container}>
@@ -35,9 +35,10 @@ const Chat = ({ route }) => {
         </View>
           <TouchableOpacity 
             style={styles.buttonBackground} 
-            onPress={() => {
-              sendMessage()
-            }} >
+            //onPress={() => {
+            //   sendMessage()
+            // }} 
+            >
               <Ionicons name="paper-plane" style={styles.button} />
           </TouchableOpacity>
       </View>

@@ -18,11 +18,8 @@ const BookView = (props) => (
 const styles = StyleSheet.create({
     item: {
         margin: 10,
-        padding: 10,
-        alignSelf: "center",
-        borderRadius: 5,
-        width: 200,
-        minHeight: 300
+        width: 180,
+        
     },
     image: {
         alignSelf: "center",
@@ -30,24 +27,27 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginBottom: 0,
         marginRight: 5,
-        width: 200,
-        height: 200,
+        width: 180,
+        height: 170,
+        top: 5,
     },
     textbox: {
         alignSelf: "center",
-        width: 198,
-        height: 200,
-        backgroundColor: "#b00055",
+        width: 180,
+        height: 130,
+        backgroundColor: "#b00055"
+        
     },
     book: {
         padding: 10,
         color: "#FFF",
-        fontSize: 24,
+        fontSize: 16,
+        fontWeight: "bold",
     },
     author: {
         padding: 10,
         color: "#FFF",
-        fontSize: 16,
+        fontSize: 13,
     }
 });
 
