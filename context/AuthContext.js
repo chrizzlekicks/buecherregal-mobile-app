@@ -28,8 +28,8 @@ export const AuthProvider = ({ children }) => {
           'content-type': 'application/json',
         },
         body: JSON.stringify({
-          email: "lassejantsch@web.de",
-          password: "!qW2AyXs",
+          email: email,
+          password: password,
         }),
       })
       if (res.ok) {
