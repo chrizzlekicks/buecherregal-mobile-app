@@ -3,10 +3,11 @@ import { View, Image, Text, FlatList, StyleSheet } from 'react-native'
 import BookView from './BookView'
 
 const Shelf = (props) => {
+  
   return (
     <View style={styles.container}>
       <FlatList
-        data={props}
+        data={props.books}
         renderItem={({ item }) => <BookView book={item} />}
         keyExtractor={(props) => props._id}
         numColumns={2}
