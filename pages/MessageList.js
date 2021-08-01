@@ -1,10 +1,8 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
-import { useMessageContext } from '../context/MessageContext';
+import { ScrollView, StyleSheet } from 'react-native'
+import { useMessageContext } from '../context/MessageContext'
 
 import Conversation from '../components/Conversation'
-
-
 
 // [
 //   {_id: 1, recipients:"Tom", messages: [{sender: "Tom",  message:"Ich gehe nachher noch..."}, {sender: "Ich",  message:"Ich auch"}, {sender: "Tom",  message:"Das freut mich"}, {sender: "Tom",  message:"Ich gehe nachher noch..."}, {sender: "Ich",  message:"Ich auch"}, {sender: "Tom",  message:"Das freut mich"}, {sender: "Tom",  message:"Ich gehe nachher noch..."}, {sender: "Ich",  message:"Ich auch"}, {sender: "Tom",  message:"Das freut mich"},]},
@@ -13,19 +11,22 @@ import Conversation from '../components/Conversation'
 //   {_id: 4, recipients:"Trudy", messages: [{sender: "Trudy",  message:"Das kann ich dir sagen!"}]},
 // ]
 
-
-
-const MessageList = ({navigation}) => {
- 
+const MessageList = ({ navigation }) => {
   console.log(useMessageContext())
   const { conversations } = useMessageContext()
-  console.log( conversations)
+  console.log(conversations)
 
   return (
-    <ScrollView style={style.container} >
-        {conversations.map(conversation => {
-            return <Conversation nav={navigation} key={conversation._id} conversation={conversation} /> })
-        }
+    <ScrollView style={style.container}>
+      {conversations.map((conversation) => {
+        return (
+          <Conversation
+            nav={navigation}
+            key={conversation._id}
+            conversation={conversation}
+          />
+        )
+      })}
     </ScrollView>
   )
 }

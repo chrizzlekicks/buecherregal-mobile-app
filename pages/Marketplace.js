@@ -1,48 +1,49 @@
-import * as React from 'react'
-import { ActivityIndicator, View, StyleSheet } from 'react-native';
-import { useEffect, useState } from 'react';
-import Shelf from '../components/Shelf';
+import React, { useEffect, useState } from 'react'
+import { ActivityIndicator, View, StyleSheet } from 'react-native'
+import Shelf from '../components/Shelf'
 
 const Marketplace = (props) => {
-    const [isLoading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
+  const [isLoading, setLoading] = useState(false)
+  const [data, setData] = useState([])
 
-    const getBooks = async () => {
-        try {
-            const response = await fetch(
-                'http://buecherregal-dev.herokuapp.com/api/books',
-                { method: 'GET' }
-            )
-            const json = await response.json()
-            console.log('TEST')
-            setData(json)
-        } catch (error) {
-            console.error(error)
-        }
+  const getBooks = async () => {
+    try {
+      setLoading(true)
+      const response = await fetch(
+        'http://buecherregal-dev.herokuapp.com/api/books',
+        { method: 'GET' }
+      )
+      const json = await response.json()
+      console.log('TEST')
+      setData(json)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setLoading(false)
     }
+  }
 
-    useEffect(() => {
-        getBooks()
-    }, [])
+  useEffect(() => {
+    getBooks()
+  }, [])
 
-
-    return (
-        <View style={styles.container}>
-            {isLoading ? <ActivityIndicator /> : (
-                <Shelf navigation={props.navigation} books={data} />
-            )
-            }
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <Shelf navigation={props.navigation} books={data} />
+      )}
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#F7F7F7',
-        marginTop: 10,
-        flex: 1
-    }
+  container: {
+    backgroundColor: '#F7F7F7',
+    marginTop: 10,
+    flex: 1,
+  },
 })
 
-
-export default Marketplace;
+export default Marketplace

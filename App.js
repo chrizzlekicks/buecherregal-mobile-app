@@ -44,8 +44,8 @@ function MessagesNavigation() {
 function MyBooksNavigation() {
   return (
     <Stack.Navigator>
-        <Stack.Screen name='MyBooks' component={MyBooks} />
-        <Stack.Screen name='Login' component={Login} />
+      <Stack.Screen name='MyBooks' component={Marketplace} />
+      <Stack.Screen name='Login' component={Login} />
     </Stack.Navigator>
   )
 }

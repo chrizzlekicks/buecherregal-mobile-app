@@ -13,7 +13,7 @@ export const AppProvider = ({ children }) => {
   const [userName, setUserName] = useState()
   const [userId, setUserId] = useState()
   const [jwt, setJwt] = useState()
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(userName? true: false)
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
   const [loading, setLoading] = useState(false)
   const [alert, setAlert] = useState({ display: false, icon: '', msg: '' })
   const [isSubmenuOpen, setIsSubmenuOpen] = useState(false)

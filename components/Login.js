@@ -13,8 +13,6 @@ import { set } from 'react-native-reanimated'
 import { useAuthContext } from '../context/AuthContext'
 
 function Login() {
-  console.log(useAuthContext())
-
   const { loginNow, email, password, setEmail, setPassword } = useAuthContext()
 
   return (

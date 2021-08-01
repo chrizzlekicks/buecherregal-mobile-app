@@ -1,36 +1,34 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { View, Text, Button } from 'react-native'
+import { ActivityIndicator, View, StyleSheet, Button } from 'react-native'
 import Shelf from '../components/Shelf'
 import { useGlobalContext } from '../context/GlobalContext'
 
 const MyBooks = ({ navigation }) => {
   const [myBooks, setMyBooks] = useState([])
-  const { setLoading, API_BOOKSBYUSER, userId, jwt } = useGlobalContext()
+  const [isLoading, setIsLoading] = useState(false)
+  const { API_BOOKSBYUSER, userId, jwt } = useGlobalContext()
 
-  const fetchMyBooks = useCallback(
-    async (api, id, token) => {
-      setLoading(true)
-      try {
-        const res = await fetch(`${api}${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'content-type': 'application/json',
-          },
-        })
-        if (res.ok) {
-          const myBookList = await res.json()
-          setMyBooks(myBookList)
-        } else {
-          throw new Error(`could not get books of user ${id}`)
-        }
-      } catch (err) {
-        console.log(err)
-      } finally {
-        setLoading(false)
+  const fetchMyBooks = useCallback(async (api, id, token) => {
+    setIsLoading(true)
+    try {
+      const res = await fetch(`${api}${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'content-type': 'application/json',
+        },
+      })
+      if (res.ok) {
+        const myBookList = await res.json()
+        setMyBooks(myBookList)
+      } else {
+        throw new Error(`could not get books of user ${id}`)
       }
-    },
-    [setLoading]
-  )
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
 
   // hole Bücher des Users
   useEffect(() => {
@@ -39,14 +37,23 @@ const MyBooks = ({ navigation }) => {
 
   return (
     <View>
-      <Text>test</Text>
       <Button
         title='Buch hochladen'
         onPress={() => navigation.navigate('UploadBook')}
       />
-      <Shelf myBooks={myBooks} />
+      <View style={styles.container}>
+        {isLoading ? <ActivityIndicator /> : <Shelf books={myBooks} />}
+      </View>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#F7F7F7',
+    marginTop: 10,
+    flex: 1,
+  },
+})
 
 export default MyBooks

@@ -4,7 +4,7 @@ import { useGlobalContext } from './GlobalContext'
 const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
-  const AUTH_SIGNIN = 'http://buecherregal.herokuapp.com/auth/signin/'
+  const AUTH_SIGNIN = 'http://buecherregal-dev.herokuapp.com/auth/signin/'
   const [isTabLeft, setIsTabLeft] = useState(true)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -33,9 +33,8 @@ export const AuthProvider = ({ children }) => {
         }),
       })
       if (res.ok) {
-        
-        const userData = await res.json();
-        setLoading(false);
+        const userData = await res.json()
+        setLoading(false)
         if (tryLogin) {
           setUserId(userData.user._id)
           setUserName(userData.user.name)
