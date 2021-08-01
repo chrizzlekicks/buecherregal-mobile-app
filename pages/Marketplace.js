@@ -14,11 +14,13 @@ const Marketplace = (props) => {
                 { method: 'GET' }
             )
             const json = await response.json()
-            console.log('TEST')
             setData(json)
             setLoading(false)
         } catch (error) {
             console.error(error)
+        }
+        finally {
+            setLoading(false);
         }
     }
 

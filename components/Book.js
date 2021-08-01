@@ -1,17 +1,17 @@
 import * as React from "react"
 import { View, Text, StyleSheet, Image, TouchableOpacity, Pressable } from "react-native"
 
-const Book = ({ book }) => (
-    <View style={styles.item}>
-        <Image source={{ uri: book.image }} style={styles.image} />
+const Book = (props) => (
+    < View style = { styles.item } >
+        <Image source={{ uri: props.book.image }} style={styles.image} />
         <View style={styles.textbox}>
-            <Text style={styles.book}>{book.name}</Text>
-            <Text style={styles.author}>{book.author}</Text>
-            <Text style={styles.default}><Text style={styles.bold}>Genre:</Text> {book.category}</Text>
-            <Text style={styles.default}><Text style={styles.bold}>Beschreibung:</Text> {book.description}</Text>
-            <Text style={styles.default}><Text style={styles.bold}>Dieses Buch gehört:</Text> {book.owner}</Text>
+            <Text style={styles.book}>{props.book.name}</Text>
+            <Text style={styles.author}>{props.book.author}</Text>
+            <Text style={styles.default}>Genre: {props.book.category}</Text>
+            <Text style={styles.default}>Beschreibung: {props.book.description}</Text>
+            <Text style={styles.default}>Dieses Buch gehört: {props.book.owner}</Text>
         </View>
-    </View>
+    </View >
 );
 
 const styles = StyleSheet.create({
