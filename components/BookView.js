@@ -1,14 +1,16 @@
 import * as React from "react"
-import { View, Text, StyleSheet, Image } from "react-native"
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native"
 
 const BookView = ({ book }) => (
-    <View style={styles.item}>
-        <Image source={{ uri: book.image }} style={styles.image} />
-        <View style={styles.textbox}>
-            <Text style={styles.book}>{book.name}</Text>
-            <Text style={styles.author}>{book.author}</Text>
+    <TouchableOpacity>
+        <View style={styles.item}>
+            <Image source={{ uri: book.image }} style={styles.image} />
+            <View style={styles.textbox}>
+                <Text style={styles.book}>{book.name}</Text>
+                <Text style={styles.author}>{book.author}</Text>
+            </View>
         </View>
-    </View>
+    </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
@@ -33,17 +35,15 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         width: 198,
         height: 200,
-        backgroundColor: "#FF0000",
+        backgroundColor: "#b00055",
     },
     book: {
         padding: 10,
-        backgroundColor: "#FF0000",
         color: "#FFF",
         fontSize: 24,
     },
     author: {
         padding: 10,
-        backgroundColor: "#FF0000",
         color: "#FFF",
         fontSize: 16,
     }

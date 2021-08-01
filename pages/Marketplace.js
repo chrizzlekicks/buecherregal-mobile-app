@@ -26,10 +26,19 @@ const Marketplace = () => {
 
 
     return (
-        <View>
+        <View style={styles.container}>
             <Shelf books={data} />
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#F7F7F7',
+        marginTop: 10,
+        flex: 1
+    }
+})
+
 
 export default Marketplace;
