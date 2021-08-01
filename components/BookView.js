@@ -1,16 +1,18 @@
 import * as React from "react"
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native"
+import Book from "./Book"
+import OpenBook from "../pages/OpenBook"
 
-const BookView = ({ book }) => (
-    <TouchableOpacity>
+const BookView = (props) => (
+    <TouchableOpacity onPress={() => props.navigation.navigate('OpenBook')}>
         <View style={styles.item}>
-            <Image source={{ uri: book.image }} style={styles.image} />
+            <Image source={{ uri: props.book.image }} style={styles.image} />
             <View style={styles.textbox}>
-                <Text style={styles.book}>{book.name}</Text>
-                <Text style={styles.author}>{book.author}</Text>
+                <Text style={styles.book}>{props.book.name}</Text>
+                <Text style={styles.author}>{props.book.author}</Text>
             </View>
         </View>
-    </TouchableOpacity>
+    </TouchableOpacity >
 );
 
 const styles = StyleSheet.create({

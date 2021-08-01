@@ -3,11 +3,11 @@ import { View, Image, Text, FlatList, StyleSheet, ScrollView } from "react-nativ
 import BookView from "./BookView"
 
 
-const Shelf = ({ books }) => {
+const Shelf = (props) => {
     return (
         <FlatList
-            data={books}
-            renderItem={({ item }) => <BookView book={item} />}
+            data={props.books}
+            renderItem={({ item }) => <BookView book={item} navigation={props.navigation} />}
             keyExtractor={(books) => books._id}
             numColumns={2}
         />

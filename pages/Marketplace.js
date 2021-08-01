@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { ScrollView, View, FlatList, StyleSheet, Text, StatusBar, Button } from 'react-native';
+import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
 import Shelf from '../components/Shelf';
 
-const Marketplace = () => {
+const Marketplace = (props) => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
 
@@ -27,7 +27,10 @@ const Marketplace = () => {
 
     return (
         <View style={styles.container}>
-            <Shelf books={data} />
+            {isLoading ? <ActivityIndicator /> : (
+                <Shelf navigation={props.navigation} books={data} />
+            )
+            }
         </View>
     );
 }
