@@ -53,13 +53,13 @@ function UploadBooksNavigation() {
 function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
+      <Tab.Navigator 
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName
 
             if (route.name === 'Marketplace') {
-              iconName = focused ? 'ios-home' : 'ios-home-outline'
+              iconName = focused ? 'home' : 'home-outline'
             } else if (route.name === 'Messages') {
               iconName = focused ? 'paper-plane' : 'paper-plane-outline'
             } else if (route.name === 'MyBooks') {
@@ -73,6 +73,7 @@ function App() {
           },
         })}
         tabBarOptions={{
+          keyboardHidesTabBar: true,
           activeTintColor: '#B00055',
           inactiveTintColor: 'gray',
         }}
