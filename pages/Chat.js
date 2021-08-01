@@ -1,52 +1,63 @@
-import React, {useEffect, useRef} from 'react'
-import {StyleSheet, ScrollView, TextInput, Text, View, Button} from 'react-native'
+import React, { useEffect, useRef } from 'react'
+import {
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  Text,
+  View,
+  Button,
+} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import Message from '../components/Message';
+import Message from '../components/Message'
 
-const Chat = ({route}) => {
- 
-  const { _id, recipients, messages} = route.params.conversation
+const Chat = ({ route }) => {
+  const { _id, recipients, messages } = route.params.conversation
   const scrollRef = useRef()
-
 
   useEffect(() => {
     scrollRef.current.scrollToEnd()
   }, [])
 
   return (
-    
     <View style={styles.container}>
-      <ScrollView 
-        ref ={scrollRef} 
-        contentContainerStyle={{ flexGrow: 1,}} >
+      <ScrollView ref={scrollRef} contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.messageContainer}>
-          {messages.map(message => <Message {...message} />)}
+          {messages.map((message) => (
+            <Message {...message} />
+          ))}
         </View>
       </ScrollView>
-      <View style= {styles.formContainer}>
+      <View style={styles.formContainer}>
         <View style={styles.inputContainer}>
-          <TextInput name= {_id} multiline={true} style={styles.input} onFocus={() => {scrollRef.current.scrollToEnd()}} />
+          <TextInput
+            name={_id}
+            multiline={true}
+            style={styles.input}
+            onFocus={() => {
+              scrollRef.current.scrollToEnd()
+            }}
+          />
         </View>
-        <View style={styles.buttonBackground} ><Ionicons name="paper-plane" style={styles.button} /></View>
+        <View style={styles.buttonBackground}>
+          <Ionicons name='paper-plane' style={styles.button} />
+        </View>
       </View>
-      
     </View>
-  
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
-  container:{ 
-    flex:1  , 
+  container: {
+    flex: 1,
     padding: 10,
   },
   messageContainer: {
     flex: 12,
-    justifyContent: "flex-end"
+    justifyContent: 'flex-end',
   },
   formContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingHorizontal: 15,
     marginTop: 20,
   },
@@ -60,24 +71,22 @@ const styles = StyleSheet.create({
 
   input: {
     fontSize: 17,
-    color: "#000"
+    color: '#000',
   },
 
   button: {
     fontSize: 30,
-    color: "#fff",
+    color: '#fff',
   },
   buttonBackground: {
-    justifyContent:  "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
 
     height: 45,
     width: 45,
 
-
     borderRadius: 23,
-    backgroundColor: "#B00055",
-  }
-
+    backgroundColor: '#B00055',
+  },
 })
-export default Chat;
+export default Chat
