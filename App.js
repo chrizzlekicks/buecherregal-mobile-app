@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -12,11 +12,20 @@ import Chat from './pages/Chat'
 
 import MyBooks from './pages/MyBooks'
 import UploadBooks from './pages/UploadBooks'
+import Login from "./components/Login"
+
+import { AuthProvider } from './context/AuthContext'
+import { useGlobalContext } from './context/GlobalContext'
+
+
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
+
+
 function MarketplaceNavigation() {
+
   return (
     <Stack.Navigator>
       <Stack.Screen name='Marketplace' component={Marketplace} />
@@ -38,6 +47,7 @@ function MyBooksNavigation() {
   return (
     <Stack.Navigator>
       <Stack.Screen name='MyBooks' component={MyBooks} />
+      <Stack.Screen name='Login' component={Login} />
     </Stack.Navigator>
   )
 }
@@ -51,15 +61,23 @@ function UploadBooksNavigation() {
 }
 
 function App() {
+
+  const { isUserLoggedIn } = useGlobalContext();
   return (
+    
     <NavigationContainer>
-      <Tab.Navigator
+      {!isUserLoggedIn? 
+      <AuthProvider>
+        <Login />
+      </AuthProvider>
+      : 
+      <Tab.Navigator 
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName
 
             if (route.name === 'Marketplace') {
-              iconName = focused ? 'ios-home' : 'ios-home-outline'
+              iconName = focused ? 'home' : 'home-outline'
             } else if (route.name === 'Messages') {
               iconName = focused ? 'paper-plane' : 'paper-plane-outline'
             } else if (route.name === 'MyBooks') {
@@ -73,6 +91,7 @@ function App() {
           },
         })}
         tabBarOptions={{
+          keyboardHidesTabBar: true,
           activeTintColor: '#B00055',
           inactiveTintColor: 'gray',
         }}
@@ -81,9 +100,10 @@ function App() {
         <Tab.Screen name='Messages' component={MessagesNavigation} />
         <Tab.Screen name='UploadBook' component={UploadBooksNavigation} />
         <Tab.Screen name='MyBooks' component={MyBooksNavigation} />
-      </Tab.Navigator>
+      </Tab.Navigator>}
     </NavigationContainer>
-  )
+  
+)
 }
 
 export default App
