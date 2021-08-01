@@ -4,7 +4,7 @@ import Book from "./Book"
 import OpenBook from "../pages/OpenBook"
 
 const BookView = (props) => (
-    <TouchableOpacity onPress={() => props.navigation.navigate('OpenBook')}>
+    <TouchableOpacity onPress={() => props.navigation.navigate('OpenBook', { book: props.book })}>
         <View style={styles.item}>
             <Image source={{ uri: props.book.image }} style={styles.image} />
             <View style={styles.textbox}>

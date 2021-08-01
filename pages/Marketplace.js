@@ -10,7 +10,7 @@ const Marketplace = (props) => {
     const getBooks = async () => {
         try {
             const response = await fetch(
-                'http://buecherregal-dev.herokuapp.com/api/books',
+                "http://buecherregal.herokuapp.com/api/books",
                 { method: 'GET' }
             )
             const json = await response.json()
