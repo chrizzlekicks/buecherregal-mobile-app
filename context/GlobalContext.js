@@ -1,38 +1,36 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext } from 'react'
 
-const AppContext = createContext();
+const AppContext = createContext()
 
 export const AppProvider = ({ children }) => {
-  const API_BOOKS = 'http://buecherregal.herokuapp.com/api/books/';
-  const API_USERS = 'http://buecherregal.herokuapp.com/api/users/';
-  const API_BOOKSBYUSER = 'http://buecherregal.herokuapp.com//api/books/user/';
-  const API_MESSAGES = 'http://buecherregal.herokuapp.com//api/messages/';
-  const API_MESSAGESUSER = 'http://buecherregal.herokuapp.com/api/messages/user/';
+  const API_BOOKS = 'http://buecherregal.herokuapp.com/api/books/'
+  const API_USERS = 'http://buecherregal.herokuapp.com/api/users/'
+  const API_BOOKSBYUSER = 'http://buecherregal.herokuapp.com//api/books/user/'
+  const API_MESSAGES = 'http://buecherregal.herokuapp.com//api/messages/'
+  const API_MESSAGESUSER =
+    'http://buecherregal.herokuapp.com/api/messages/user/'
   const [userName, setUserName] = useState()
   const [userId, setUserId] = useState()
   const [jwt, setJwt] = useState()
-  // const userName = sessionStorage.getItem('name');
-  // const userId = sessionStorage.getItem('id');
-  // const jwt = sessionStorage.getItem('token');
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(userName ? true : false);
-  const [loading, setLoading] = useState(false);
-  const [alert, setAlert] = useState({ display: false, icon: '', msg: '' });
-  const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
-  const [showLinks, setShowLinks] = useState(false);
-  const [selectedConversation, setSelectedConversation] = useState(false);
-  const [isMessageSent, setIsMessageSent] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true)
+  const [loading, setLoading] = useState(false)
+  const [alert, setAlert] = useState({ display: false, icon: '', msg: '' })
+  const [isSubmenuOpen, setIsSubmenuOpen] = useState(false)
+  const [showLinks, setShowLinks] = useState(false)
+  const [selectedConversation, setSelectedConversation] = useState(false)
+  const [isMessageSent, setIsMessageSent] = useState(false)
 
   // schließe das Usermenu rechts oben
   const closeSubmenu = () => {
-    setIsSubmenuOpen(false);
-  };
+    setIsSubmenuOpen(false)
+  }
 
   // klappe das Navigationsmenu ein nach Klicken eines Links
   const hideLinks = () => {
     if (showLinks) {
-      setShowLinks(false);
+      setShowLinks(false)
     }
-  };
+  }
 
   // speichere APIs, states und functions in einer globalen Variable
   const globalValues = {
@@ -63,15 +61,15 @@ export const AppProvider = ({ children }) => {
 
     setUserId,
     setUserName,
-    setJwt
-  };
+    setJwt,
+  }
 
   return (
     <AppContext.Provider value={globalValues}>{children}</AppContext.Provider>
-  );
-};
+  )
+}
 
 // custom hook
 export const useGlobalContext = () => {
-  return useContext(AppContext);
-};
+  return useContext(AppContext)
+}

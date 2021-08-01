@@ -7,26 +7,78 @@ import {
   Button,
   View,
 } from 'react-native'
+import { useGlobalContext } from '../context/GlobalContext'
 
 const UploadBooks = () => {
-  const [newBook, setNewBook] = useState({
-    title: '',
-    author: '',
-    genre: '',
-    language: '',
-    condition: '',
-    desc: '',
-  })
+  const [name, setName] = useState()
+  const [author, setAuthor] = useState()
+  const [genre, setGenre] = useState()
+  const [language, setLanguage] = useState()
+  const [condition, setCondition] = useState()
+  const [desc, setDesc] = useState()
 
-  const deleteInput = () => {
-    setNewBook({
-      title: '',
-      author: '',
-      genre: '',
-      language: '',
-      condition: '',
-      desc: '',
-    })
+  const { setLoading, setAlert, API_BOOKS, userId, jwt } = useGlobalContext()
+
+  const bookUpload = async (api, token) => {
+    try {
+      setLoading(true)
+      const res = await fetch(api, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: name,
+          author: author,
+          genre: genre,
+          language: language,
+          condition: condition,
+          owner: userId,
+          desc: desc,
+        }),
+      })
+      if (res.ok) {
+        await res.json()
+        setLoading(false)
+        setAlert({
+          display: true,
+          // icon: <FaCheckCircle />,
+          msg: 'Das Buch wurde erfolgreich hinzugefügt',
+        })
+      } else {
+        throw new Error('Hoppala, da ist was schief gegangen')
+      }
+    } catch (error) {
+      console.log('Hochladen fehlgeschlagen', error)
+      setLoading(false)
+      setAlert({
+        display: true,
+        // icon: <FaPoo />,
+        msg: 'Das hat irgendwie nicht geklappt...',
+      })
+    } finally {
+      setName()
+      setAuthor()
+      setGenre()
+      setLanguage()
+      setCondition()
+      setDesc()
+    }
+  }
+
+  const uploadAll = (e) => {
+    e.preventDefault()
+    bookUpload(API_BOOKS, jwt)
+  }
+
+  // resette die komplette Eingabe
+  const resetInput = () => {
+    setName()
+    setAuthor()
+    setGenre()
+    setLanguage()
+    setCondition()
+    setDesc()
   }
 
   return (
@@ -36,37 +88,49 @@ const UploadBooks = () => {
       <TextInput
         style={styles.input}
         placeholder='Titel des Buches'
-        onChange={(e) => setNewBook({ ...newBook, title: e.target.value })}
-        value={newBook.title}
+        onChangeText={setName}
+        name='name'
+        value={name}
       />
       <TextInput
         style={styles.input}
         placeholder='AutorIn des Buches'
-        onChange={(e) => setNewBook({ ...newBook, author: e.target.value })}
-        value={newBook.author}
+        onChangeText={setAuthor}
+        name='author'
+        value={author}
       />
       <TextInput
         style={styles.input}
         placeholder='Genre des Buches'
-        onChange={(e) => setNewBook({ ...newBook, genre: e.target.value })}
-        value={newBook.genre}
+        onChangeText={setGenre}
+        name='genre'
+        value={genre}
       />
       <TextInput
         style={styles.input}
         placeholder='Sprache des Buches'
-        onChange={(e) => setNewBook({ ...newBook, language: e.target.value })}
-        value={newBook.language}
+        onChangeText={setLanguage}
+        name='language'
+        value={language}
       />
       <TextInput
         style={styles.input}
         placeholder='Zustand des Buches'
-        onChange={(e) => setNewBook({ ...newBook, condition: e.target.value })}
-        value={newBook.condition}
+        onChangeText={setCondition}
+        name='condition'
+        value={condition}
       />
-      <TouchableOpacity style={styles.btn}>
+      <TextInput
+        style={styles.input}
+        placeholder='Zustand des Buches'
+        onChangeText={setDesc}
+        name='desc'
+        value={desc}
+      />
+      <TouchableOpacity style={styles.btn} onPress={uploadAll}>
         <Text style={styles.btnText}>Hochladen</Text>
       </TouchableOpacity>
-      <Button onPress={deleteInput} title='Eingaben löschen' color='#ccc' />
+      <Button onPress={resetInput} title='Eingaben löschen' color='#ccc' />
     </View>
   )
 }

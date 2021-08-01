@@ -1,108 +1,78 @@
-import { createContext, useContext, useState } from 'react';
-import { FaCheckCircle, FaPoo, FaFlushed } from 'react-icons/fa';
-import { useGlobalContext } from './GlobalContext';
+import React, { createContext, useContext, useState } from 'react'
+import { useGlobalContext } from './GlobalContext'
 
-const UploadBookContext = createContext();
+const UploadBookContext = createContext()
 
 export const UploadBookProvider = ({ children }) => {
-  const [newBook, setNewBook] = useState({
-    name: '',
-    author: '',
-    genre: '',
-    language: '',
-    condition: '',
-    desc: '',
-  });
-  const [bookImage, setBookImage] = useState();
-  const { setLoading, setAlert, API_BOOKS, userId, userName, jwt } =
-    useGlobalContext();
+  const [name, setName] = useState()
+  const [author, setAuthor] = useState()
+  const [genre, setGenre] = useState()
+  const [language, setLanguage] = useState()
+  const [condition, setCondition] = useState()
+  const [desc, setDesc] = useState()
+  const { setLoading, setAlert, API_BOOKS, userId, jwt } = useGlobalContext()
 
   // POST Buch
-  const bookUpload = async (api, token, formdata) => {
+  const bookUpload = async (api, token) => {
     try {
-      setLoading(true);
+      setLoading(true)
       const res = await fetch(api, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: formdata,
-      });
+        body: JSON.stringify({
+          name: name,
+          author: author,
+          genre: genre,
+          language: language,
+          condition: condition,
+          desc: desc,
+        }),
+      })
       if (res.ok) {
-        await res.json();
-        setLoading(false);
+        await res.json()
+        setLoading(false)
         setAlert({
           display: true,
-          icon: <FaCheckCircle />,
+          // icon: <FaCheckCircle />,
           msg: 'Das Buch wurde erfolgreich hinzugefügt',
-        });
+        })
       } else {
-        throw new Error('Hoppala, da ist was schief gegangen');
+        throw new Error('Hoppala, da ist was schief gegangen')
       }
     } catch (error) {
-      console.log('Hochladen fehlgeschlagen', error);
-      setLoading(false);
+      console.log('Hochladen fehlgeschlagen', error)
+      setLoading(false)
       setAlert({
         display: true,
-        icon: <FaPoo />,
+        // icon: <FaPoo />,
         msg: 'Das hat irgendwie nicht geklappt...',
-      });
+      })
     } finally {
-      setNewBook({
-        name: '',
-        author: '',
-        genre: '',
-        language: '',
-        condition: '',
-        desc: '',
-      });
-      setBookImage();
+      setName()
+      setAuthor()
+      setGenre()
+      setLanguage()
+      setCondition()
+      setDesc()
     }
-  };
-
-  // Textfeldeingabe
-  const textChange = (e) => {
-    setNewBook({ ...newBook, [e.target.name]: e.target.value });
-  };
+  }
 
   // Bilddatei hinzufügen
   const imageChange = (e) => {
-    setBookImage(e.target.files[0]);
-  };
+    setBookImage(e.target.files[0])
+  }
 
   // Buch hochladen
   const uploadAll = (e) => {
-    e.preventDefault();
-    if (
-      newBook.name &&
-      newBook.author &&
-      newBook.genre &&
-      newBook.language &&
-      newBook.condition
-    ) {
-      const bookData = new FormData();
-      bookData.append('bookImage', bookImage);
-      bookData.append('name', newBook.name);
-      bookData.append('author', newBook.author);
-      bookData.append('category', newBook.genre);
-      bookData.append('language', newBook.language);
-      bookData.append('condition', newBook.condition);
-      bookData.append('owner', userId);
-      bookData.append('username', userName);
-      bookData.append('description', newBook.desc);
-      bookUpload(API_BOOKS, jwt, bookData);
-    } else {
-      setAlert({
-        display: true,
-        icon: <FaFlushed />,
-        msg: 'Halt, da fehlen paar Felder!',
-      });
-    }
-  };
+    e.preventDefault()
+    bookUpload(API_BOOKS, jwt)
+  }
 
   // resette die komplette Eingabe
   const resetInput = () => {
-    setBookImage();
+    setBookImage()
     setNewBook({
       name: '',
       author: '',
@@ -111,8 +81,8 @@ export const UploadBookProvider = ({ children }) => {
       condition: '',
       owner: userId,
       desc: '',
-    });
-  };
+    })
+  }
 
   // speichere states und functions in Variable
   const uploadValues = {
@@ -122,17 +92,17 @@ export const UploadBookProvider = ({ children }) => {
     imageChange,
     uploadAll,
     resetInput,
-  };
+  }
 
   // gebe Variable an children weiter
   return (
     <UploadBookContext.Provider value={uploadValues}>
       {children}
     </UploadBookContext.Provider>
-  );
-};
+  )
+}
 
 // custom hook
 export const useUploadBookContext = () => {
-  return useContext(UploadBookContext);
-};
+  return useContext(UploadBookContext)
+}
