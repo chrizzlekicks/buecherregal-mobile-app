@@ -33,12 +33,17 @@ export const AuthProvider = ({ children }) => {
         }),
       })
       if (res.ok) {
-        const userData = await res.json()
-        setLoading(false)
+        
+        const userData = await res.json();
+        setLoading(false);
         if (tryLogin) {
           setUserId(userData.user._id)
           setUserName(userData.user.name)
-          setJwt(userData.user.token)
+          setJwt(userData.token)
+
+          // sessionStorage.setItem('id', userData.user._id);
+          // sessionStorage.setItem('name', userData.user.name);
+          // sessionStorage.setItem('token', userData.token);
           setIsUserLoggedIn(true)
         } else {
           setAlert({
