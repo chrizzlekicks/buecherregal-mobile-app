@@ -7,49 +7,45 @@ const Book = ({ book }) => (
         <View style={styles.textbox}>
             <Text style={styles.book}>{book.name}</Text>
             <Text style={styles.author}>{book.author}</Text>
-            <Text style={styles.default}>Genre: {book.category}</Text>
-            <Text style={styles.default}>Beschreibung: {book.description}</Text>
-            <Text style={styles.default}>Dieses Buch gehört: {book.owner}</Text>
+            <Text style={styles.default}><Text style={styles.bold}>Genre:</Text> {book.category}</Text>
+            <Text style={styles.default}><Text style={styles.bold}>Beschreibung:</Text> {book.description}</Text>
+            <Text style={styles.default}><Text style={styles.bold}>Dieses Buch gehört:</Text> {book.owner}</Text>
         </View>
     </View>
 );
 
 const styles = StyleSheet.create({
     item: {
-        margin: 10,
-        padding: 10,
-        alignSelf: "center",
-        borderRadius: 5,
-        width: 200,
-        minHeight: 300
+        flex:1,
     },
     image: {
         alignSelf: "center",
-        marginTop: 5,
-        marginLeft: 5,
-        marginBottom: 0,
-        marginRight: 5,
-        width: 200,
-        height: 200,
+        width: "100%",
+        height: 300,
     },
     textbox: {
         alignSelf: "center",
         backgroundColor: "#FFFFFF",
-        flex: 1
+        width: "100%",
+        flex: 1,
+        padding: 15,
     },
     book: {
-        padding: 10,
         color: "#b00055",
-        fontSize: 24,
+        fontSize: 30,
+        fontWeight: "bold"
     },
     author: {
-        padding: 10,
         color: "#b00055",
-        fontSize: 16,
+        fontSize: 19,
+        marginBottom: 10,
     },
     default: {
         color: "#000000",
-        fontSize: 16,
+        fontSize: 19,
+    },
+    bold: {
+        fontWeight: "bold",
     }
 
 });

@@ -10,12 +10,13 @@ const Marketplace = (props) => {
     const getBooks = async () => {
         try {
             const response = await fetch(
-                'http://buecherregal-dev.herokuapp.com/api/books',
+                'http://buecherregal.herokuapp.com/api/books',
                 { method: 'GET' }
             )
             const json = await response.json()
             console.log('TEST')
             setData(json)
+            setLoading(false)
         } catch (error) {
             console.error(error)
         }
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#F7F7F7',
         marginTop: 10,
-        flex: 1
+        flex: 1,
     }
 })
 
