@@ -1,4 +1,4 @@
-import {
+import React, {
   createContext,
   useContext,
   useState,
@@ -14,11 +14,12 @@ const MessageContext = createContext();
 export const MessageProvider = ({ children }) => {
   const [conversations, setConversations] = useState([]);
   const [chat, setChat] = useState([]);
-  const [newMessage, setNewMessage] = useState({
-    sender: '',
-    reciever: '',
-    message: '',
-  });
+
+  const [newMessage, setNewMessage] = useState('');
+  const [newSender, setNewSender] = useState('');
+  const [newReciver, setNewReciver] = useState('');
+
+  const [confId, setConfId] = useState("")
   const scrollToBottom = useRef();
   const {
     isMessageSent,
@@ -62,6 +63,7 @@ export const MessageProvider = ({ children }) => {
   // GET alle Nachrichten einer Konversation
   const fetchMessages = useCallback(
     async (api_messages, conv_id, token, user_id) => {
+      console.log(api_messages, conv_id, token, user_id)
       if (selectedConversation) {
         try {
           setLoading(true);
@@ -73,14 +75,13 @@ export const MessageProvider = ({ children }) => {
           if (res.ok) {
             const singleConv = await res.json();
             setChat(singleConv);
-            setNewMessage({
-              sender: user_id,
-              reciever:
-                user_id === singleConv.recipients[0]._id
-                  ? singleConv.recipients[1]._id
-                  : singleConv.recipients[0]._id,
-              message: '',
-            });
+            setNewSender(user_id)
+            setNewReciver(
+              user_id === singleConv.recipients[0]._id
+                ? singleConv.recipients[1]._id
+                : singleConv.recipients[0]._id,
+              )
+            setNewMessage("")
             scrollToBottom.current.scrollIntoView({
               block: 'end',
               behavior: 'smooth',
@@ -114,8 +115,10 @@ export const MessageProvider = ({ children }) => {
         },
         body: JSON.stringify(message),
       });
+      
       if (res.ok) {
-        await res.json();
+        await res.json()
+        console.log("worked");
       } else {
         throw new Error('Nachricht konnte nicht verschickt werden');
       }
@@ -123,11 +126,9 @@ export const MessageProvider = ({ children }) => {
       console.log(error);
     } finally {
       setLoading(false);
-      setNewMessage({
-        sender: '',
-        reciever: '',
-        message: '',
-      });
+      setNewMessage("");
+      setNewReciver("")
+      setNewSender("")
     }
   };
 
@@ -145,54 +146,67 @@ export const MessageProvider = ({ children }) => {
 
   // update die Nachrichten
   useEffect(() => {
-    fetchMessages(API_MESSAGES, sessionStorage.getItem('convId'), jwt, userId);
+    fetchMessages(API_MESSAGES, confId, jwt, userId);
   }, [isMessageSent, API_MESSAGES, fetchMessages, jwt, userId]);
 
   // rufe eine Konversation und die dazugehörigen Nachrichten auf
-  const openConversation = (e) => {
+  const openConversation = () => {
     setSelectedConversation(true);
-    sessionStorage.setItem('convId', e.currentTarget.id);
-    fetchMessages(API_MESSAGES, e.currentTarget.id, jwt, userId);
+    dd;
   };
 
-  // Nachrichteneingabe
-  const handleMessage = (e) => {
-    setNewMessage({ ...newMessage, [e.target.name]: e.target.value });
-  };
+  // // Nachrichteneingabe
+  // const handleMessage = (e) => {
+  //   setNewMessage({ ...newMessage, [e.target.name]: e.target.value });
+  // };
 
   // schicke die Nachricht ab
-  const sendMessage = (e) => {
+  const sendMessage = () => {
     if (!selectedConversation) {
       setAlert({
         display: true,
-        icon: <FaFlushed />,
+        //icon: <FaFlushed />,
         msg: 'Du hast keine Konversation ausgewählt!',
       });
+      console.log("didnt work")
       return null;
+      
     }
-    e.preventDefault();
-    postMessage(API_MESSAGES, chat._id, jwt, newMessage);
-    setIsMessageSent(true);
+    const assembledMessage = {
+      sender: newSender,
+      reciever: newReciver,
+      message: newMessage,
+    }
+    console.log("worked", assembledMessage)
+    // postMessage(API_MESSAGES, chat._id, jwt, assembledMessage);
+    
+    // setIsMessageSent(true);
   };
 
-  // schicke die Nachricht per Enter ab
-  const handleKeyPress = (e) => {
-    if (e.charCode === 13) {
-      sendMessage(e);
-    }
-  };
+  // // schicke die Nachricht per Enter ab
+  // const handleKeyPress = (e) => {
+  //   if (e.charCode === 13) {
+  //     sendMessage(e);
+  //   }
+  // };
 
   // speichere states & functions in Variable
   const messageValues = {
     conversations,
     chat,
     newMessage,
+    setNewMessage,
+    setNewSender,
+    setNewReciver,
     selectedConversation,
     scrollToBottom,
     openConversation,
+    setSelectedConversation,
+    fetchMessages,
     sendMessage,
-    handleMessage,
-    handleKeyPress,
+    setConfId
+    //handleMessage,
+    //handleKeyPress,
   };
 
   return (

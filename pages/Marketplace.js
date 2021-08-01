@@ -9,20 +9,21 @@ const Marketplace = (props) => {
 
     const getBooks = async () => {
         try {
-            const response = await fetch("http://buecherregal.herokuapp.com/api/books", { method: 'GET' });
-            const json = await response.json();
-            console.log("TEST")
-            setData(json);
+            const response = await fetch(
+                'http://buecherregal-dev.herokuapp.com/api/books',
+                { method: 'GET' }
+            )
+            const json = await response.json()
+            console.log('TEST')
+            setData(json)
         } catch (error) {
-            console.error(error);
-        } finally {
-            setLoading(false);
+            console.error(error)
         }
     }
 
     useEffect(() => {
-        getBooks();
-    }, []);
+        getBooks()
+    }, [])
 
 
     return (

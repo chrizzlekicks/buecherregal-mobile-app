@@ -12,9 +12,7 @@ target 'app' do
     :hermes_enabled => false
   )
 
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
-  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
   target 'appTests' do
     inherit! :complete
