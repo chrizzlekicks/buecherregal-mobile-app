@@ -1,12 +1,15 @@
 import * as React from 'react'
 import {View, Text, Button} from 'react-native'
+import { useGlobalContext } from '../context/GlobalContext';
 
 const MyBooks = ({ navigation }) => {
- 
+  const stuff = useGlobalContext()
+  console.log({stuff: stuff})
+
   return (
     <View>
-      <Text>MyBooks</Text>
-      <Button title="Upload Book" onPress={() => navigation.navigate("UploadBook")}  />
+      <Text>test</Text>
+      <Button title="Login" onPress={() => navigation.navigate("Login")}  />
     </View>
   );
 };

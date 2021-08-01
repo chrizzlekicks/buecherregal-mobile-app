@@ -1,24 +1,21 @@
-import { createContext, useContext, useState } from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
+import React, {createContext, useContext, useState } from 'react';
+import { useGlobalContext } from './GlobalContext';
 import { FaCheckCircle, FaPoop } from 'react-icons/fa';
 import { useHistory, useLocation } from 'react-router-dom';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const AUTH_SIGNIN = '/auth/signin/';
+  const AUTH_SIGNIN = 'http://buecherregal.herokuapp.com/auth/signin/';
   const [isTabLeft, setIsTabLeft] = useState(true);
-  const [userCredential, setUserCredential] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
-  const { API_USERS, setIsUserLoggedIn, setAlert, setLoading } =
+  const [email, setEmail] =useState('')
+  const [password, setPassword] =useState('')
+  const { API_USERS, setIsUserLoggedIn, setAlert, setLoading, setUserId, setUserName, setJwt } =
     useGlobalContext();
-  const forwardPage = useHistory();
-  const { state } = useLocation();
+  // const forwardPage = useHistory();
+  // const { state } = useLocation();
 
-  // POST registriere neuen User im Backend / logge User ein (Backend)
+  // // POST registriere neuen User im Backend / logge User ein (Backend)
   const signInUser = async (url, tryLogin) => {
     try {
       setLoading(true);
@@ -27,26 +24,35 @@ export const AuthProvider = ({ children }) => {
         headers: {
           'content-type': 'application/json',
         },
-        body: JSON.stringify(userCredential),
+        body: JSON.stringify({
+          email: email,
+          password: password
+        }),
       });
       if (res.ok) {
         const userData = await res.json();
         setLoading(false);
         if (tryLogin) {
-          sessionStorage.setItem('id', userData.user._id);
-          sessionStorage.setItem('name', userData.user.name);
-          sessionStorage.setItem('token', userData.token);
-          forwardPage.push(state ? state.from : '/', setIsUserLoggedIn(true));
+          setUserId(userData.user._id)
+          setUserName(userData.user.name)
+          setJwt(userData.user.token)
+
+          // sessionStorage.setItem('id', userData.user._id);
+          // sessionStorage.setItem('name', userData.user.name);
+          // sessionStorage.setItem('token', userData.token);
+          setIsUserLoggedIn(true)
         } else {
           setAlert({
             display: true,
-            icon: <FaCheckCircle />,
+            //icon: <FaCheckCircle />,
             msg: 'Du bist registriert! Logge dich nun ein!',
           });
-          setUserCredential({ name: '', email: '', password: '' });
+          setEmail("")
+          setPassword("");
           setIsTabLeft(true);
         }
       } else {
+        console.log(Fehler)
         throw new Error('Hoppala, da ist wohl was schief gelaufen...');
       }
     } catch (error) {
@@ -54,19 +60,12 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
       setAlert({
         display: true,
-        icon: <FaPoop />,
+        //icon: <FaPoop />,
         msg: 'Das hat leider nicht geklappt',
       });
-      setUserCredential({ name: '', email: '', password: '' });
+      setEmail("")
+      setPassword("");
     }
-  };
-
-  // verarbeite die Eingabe des Users
-  const checkSigninInput = (e) => {
-    setUserCredential({
-      ...userCredential,
-      [e.target.name]: e.target.value,
-    });
   };
 
   // logge den User ein (UI)
@@ -86,11 +85,13 @@ export const AuthProvider = ({ children }) => {
     AUTH_SIGNIN,
     isTabLeft,
     setIsTabLeft,
-    userCredential,
-    setUserCredential,
-    checkSigninInput,
+    //userCredential,
+    //setUserCredential,
+    //checkSigninInput,
     loginNow,
     signupNow,
+    setEmail,
+    setPassword
   };
 
   return (
