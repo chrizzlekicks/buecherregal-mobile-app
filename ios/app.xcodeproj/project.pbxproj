@@ -151,12 +151,12 @@
 			sourceTree = "<group>";
 		};
 		E7FA62F4F3E144B9857FFF68 /* Resources */ = {
-			isa = "PBXGroup";
+			isa = PBXGroup;
 			children = (
 			);
 			name = Resources;
-			sourceTree = "<group>";
 			path = "";
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
